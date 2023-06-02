@@ -38,8 +38,10 @@ class _LoginPage extends State<LoginPage> {
         child: Column(
           children: [
             Image(
-                image: NetworkImage(
-                    'https://pbs.twimg.com/profile_images/438771627854024704/Az4OY07a_400x400.png')),
+              width: 150,
+              image: NetworkImage(
+                  'https://pbs.twimg.com/profile_images/438771627854024704/Az4OY07a_400x400.png'),
+            ),
             TextField(
                 keyboardType: TextInputType.emailAddress,
                 onChanged: (value) => username = value,
