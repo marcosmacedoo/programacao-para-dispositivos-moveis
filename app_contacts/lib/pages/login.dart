@@ -26,10 +26,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
-  String username = '';
-  String password = '';
+  String _username = '';
+  String _password = '';
+  bool _isPasswordVisible = false;
 
   void _singIn() {}
+
+  void _tooglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +48,7 @@ class _LoginPage extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Image(
-                width: 150,
+                width: 88,
                 image: NetworkImage(
                     'https://pbs.twimg.com/profile_images/438771627854024704/Az4OY07a_400x400.png'),
               ),
@@ -49,15 +56,24 @@ class _LoginPage extends State<LoginPage> {
                 padding: const EdgeInsets.only(top: 32.0),
                 child: TextField(
                     keyboardType: TextInputType.emailAddress,
-                    onChanged: (value) => username = value,
+                    onChanged: (value) => _username = value,
                     decoration: const InputDecoration(label: Text("Email"))),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: TextField(
                     keyboardType: TextInputType.visiblePassword,
-                    onChanged: (value) => password = value,
-                    decoration: const InputDecoration(label: Text("Senha"))),
+                    obscureText: !_isPasswordVisible,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    onChanged: (value) => _password = value,
+                    decoration: InputDecoration(
+                        label: const Text("Senha"),
+                        suffixIcon: IconButton(
+                            onPressed: _tooglePasswordVisibility,
+                            icon: Icon(_isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off)))),
               ),
               Padding(
                   padding: const EdgeInsets.only(top: 32.0),
@@ -72,7 +88,15 @@ class _LoginPage extends State<LoginPage> {
                           backgroundColor: Colors.yellow[600],
                         ),
                         child: const Text("Entrar")),
-                  ))
+                  )),
+              Padding(
+                  padding: const EdgeInsets.only(top: 48.0),
+                  child: TextButton(
+                      onPressed: () => print('Clicou'),
+                      child: const Text(
+                        'Cadastra-se',
+                        style: TextStyle(color: Colors.green),
+                      )))
             ],
           ),
         ),
